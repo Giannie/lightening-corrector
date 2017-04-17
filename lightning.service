@@ -1,0 +1,12 @@
+[Unit]
+Description=Lightening Corrector
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/pi/lightening-corrector/lightning.py
+User=pi
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
