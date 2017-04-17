@@ -38,9 +38,19 @@ verb:
 P.S. I'm only a bot; I reply to anyone that uses the word "lightening", even if they used it correctly. I apologise if you have used this word correctly.
 '''
 
-def foundWord(string, substring):
-    if re.search(r"\b" + re.escape(substring) + r"\b", string):
-        return True
+def foundWord(string):
+    match = False
+    substring = "lightening"
+    false_matches = ["lightening up", "lightening the load"]
+    result = re.search(r"\b" + re.escape(substring) + r"\b", string)
+    while result:
+        for f in false_matches:
+            if string[result.start():].find(f) == 0:
+                string = string[result.end():]
+                result = re.search(r"\b" + re.escape(substring) + r"\b", string)
+                break
+        else:
+            return True
     return False
 
 reddit = praw.Reddit('lightning')
@@ -49,7 +59,7 @@ comment_queue = []
 then = 0
 print("Starting to trawl comments")
 for comment in reddit.subreddit('all').stream.comments():
-    if str(comment.author) != username and foundWord(comment.body, "lightening"):
+    if username not in [str(comment.author),str(comment.parent().author)] and foundWord(comment.body.lower()):
         print("Adding comment",comment,"to queue")
         comment_queue.append(comment)
     if time.time() - then > 60:
