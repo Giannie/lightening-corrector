@@ -37,13 +37,18 @@ verb:
 P.S. I'm only a bot; I reply to anyone that uses the word "lightening", even if they used it correctly. I apologise if you have used this word correctly.
 '''
 
+def foundWord(string, substring):
+    if re.search(r"\b" + re.escape(substring) + r"\b", string):
+      return True
+   return False
+
 reddit = praw.Reddit('lightning')
 username = reddit.user.me().name
 comment_queue = []
 then = 0
 print("Starting to trawl comments")
 for comment in reddit.subreddit('all').stream.comments():
-    if str(comment.author) != username and comment.body.lower().find("lightening") > -1:
+    if str(comment.author) != username and foundWord(comment.body, "lightening"):
         print("Adding comment",comment,"to queue")
         comment_queue.append(comment)
     if time.time() - then > 60:
