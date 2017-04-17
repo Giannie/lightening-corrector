@@ -11,7 +11,7 @@ import time
 import datetime
 import re
 
-text = '''Are you sure you didn't mean lightning? If you are talking about Apple's connector, you mean "lightning".
+text = '''Are you sure you didn't mean lightning? If you are talking about electrostatic discharge or Apple's connector, you mean "lightning".
 
 lightning:
 
