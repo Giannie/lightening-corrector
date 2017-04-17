@@ -39,8 +39,8 @@ P.S. I'm only a bot; I reply to anyone that uses the word "lightening", even if 
 
 def foundWord(string, substring):
     if re.search(r"\b" + re.escape(substring) + r"\b", string):
-      return True
-   return False
+        return True
+    return False
 
 reddit = praw.Reddit('lightning')
 username = reddit.user.me().name
