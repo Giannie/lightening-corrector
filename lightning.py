@@ -9,6 +9,7 @@ import praw
 from time import sleep
 import time
 import datetime
+import re
 
 text = '''Are you sure you didn't mean lightning? If you are talking about Apple's connector, you mean "lightning".
 
