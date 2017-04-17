@@ -41,6 +41,7 @@ reddit = praw.Reddit('lightning')
 username = reddit.user.me().name
 comment_queue = []
 then = 0
+print("Starting to trawl comments")
 for comment in reddit.subreddit('all').stream.comments():
     if str(comment.author) != username and comment.body.lower().find("lightening") > -1:
         print("Adding comment",comment,"to queue")
