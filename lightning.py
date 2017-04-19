@@ -48,7 +48,7 @@ def foundWord(comment):
     string = comment.body
     if re.search(r"\b" + re.escape("lightening") + r"\b", string.lower()):
         print("Checking", comment, "for misuse.")
-        sentences = [sentence for sentence in string.split('.') if "lightening" in sentence.lower()]
+        sentences = [sentence.strip() for sentence in re.split('[?!.]',string) if "lightening" in sentence.lower()]
         for sentence in sentences:
             url = ENDPOINT + "text=" + sentence + "&mode=proof"
             resp = requests.get(url, headers=HEADERS)
