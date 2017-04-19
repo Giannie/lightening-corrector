@@ -44,8 +44,10 @@ verb:
 P.S. I'm only a bot; but I'm trying to learn. I can now actually check to see if you've misused the word "lightening" using spell checking APIs. If I have replied to you, it is now likely that you have made a mistake. Please reply if you think I'm wrong!
 '''
 
-def foundWord(string):
+def foundWord(comment):
+    string = comment.body
     if re.search(r"\b" + re.escape("lightening") + r"\b", string.lower()):
+        print("Checking", comment, "for misuse.")
         sentences = [sentence for sentence in string.split('.') if "lightening" in sentence.lower()]
         for sentence in sentences:
             url = ENDPOINT + "text=" + sentence + "&mode=proof"
@@ -53,6 +55,7 @@ def foundWord(string):
             if resp.ok:
                 if "lightening" in [correction['token'] for correction in json.loads(resp.text)['flaggedTokens']]:
                     return True
+    print("This one is fine")
     return False
 
 reddit = praw.Reddit('lightning')
@@ -61,7 +64,7 @@ comment_queue = []
 then = 0
 print("Starting to trawl comments")
 for comment in reddit.subreddit('all').stream.comments():
-    if username != str(comment.author) and foundWord(comment.body):
+    if username != str(comment.author) and foundWord(comment):
         print("Adding comment",comment,"to queue")
         comment_queue.append(comment)
     if time.time() - then > 60:
