@@ -10,6 +10,11 @@ from time import sleep
 import time
 import datetime
 import re
+import requests
+import spellcheck_config
+
+ENDPOINT = "https://api.cognitive.microsoft.com/bing/v5.0/spellcheck/?"
+HEADERS = {"Ocp-Apim-Subscription-Key": spellcheck_config.KEY}
 
 text = '''Are you sure you didn't mean lightning? If you are talking about electrostatic discharge or Apple's connector, you mean "lightning".
 
@@ -35,22 +40,18 @@ verb:
 2. to become lighter or less dark; brighten.
 "The sky is lightening now that the storm has passed"
 
-P.S. I'm only a bot; I reply to anyone that uses the word "lightening", even if they used it correctly. I apologise if you have used this word correctly. If this is a skincare or makeup subreddit you should probably just ban me now. You guys definitely use lightening correctly more often than not.
+P.S. I'm only a bot; but I'm trying to learn. I can now actually check to see if you've misused the word "lightening" using spell checking APIs. If I have replied to you, it is now likely that you have made a mistake. Please reply if you think I'm wrong!
 '''
 
 def foundWord(string):
-    match = False
-    substring = "lightening"
-    false_matches = ["lightening up", "lightening the load"]
-    result = re.search(r"\b" + re.escape(substring) + r"\b", string)
-    while result:
-        for f in false_matches:
-            if string[result.start():].find(f) == 0:
-                string = string[result.end():]
-                result = re.search(r"\b" + re.escape(substring) + r"\b", string)
-                break
-        else:
-            return True
+    if re.search(r"\b" + re.escape("lightening") + r"\b", string.lower()):
+        sentences = [sentence for sentence in string.split('.') if "lightening" in sentence.lower()]
+        for sentence in sentences:
+            url = ENDPOINT + "text=" + sentence + "&mode=proof"
+            resp = requests.get(url, headers=HEADERS)
+            if resp.ok:
+                if "lightening" in [correction['token'] for correction in json.loads(resp.text)['flaggedTokens']]:
+                    return True
     return False
 
 reddit = praw.Reddit('lightning')
@@ -59,7 +60,7 @@ comment_queue = []
 then = 0
 print("Starting to trawl comments")
 for comment in reddit.subreddit('all').stream.comments():
-    if username != str(comment.author) and foundWord(comment.body.lower()):
+    if username != str(comment.author) and foundWord(comment.body:
         print("Adding comment",comment,"to queue")
         comment_queue.append(comment)
     if time.time() - then > 60:
