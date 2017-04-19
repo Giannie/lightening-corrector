@@ -55,7 +55,7 @@ def foundWord(comment):
             if resp.ok:
                 if "lightening" in [correction['token'] for correction in json.loads(resp.text)['flaggedTokens']]:
                     return True
-    print("This one is fine")
+        print("This one is fine")
     return False
 
 reddit = praw.Reddit('lightning')
