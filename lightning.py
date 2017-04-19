@@ -60,7 +60,7 @@ comment_queue = []
 then = 0
 print("Starting to trawl comments")
 for comment in reddit.subreddit('all').stream.comments():
-    if username != str(comment.author) and foundWord(comment.body:
+    if username != str(comment.author) and foundWord(comment.body):
         print("Adding comment",comment,"to queue")
         comment_queue.append(comment)
     if time.time() - then > 60:
