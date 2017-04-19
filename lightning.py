@@ -59,7 +59,14 @@ def foundWord(comment):
     return False
 
 reddit = praw.Reddit('lightning')
-username = reddit.user.me().name
+starting = True
+while starting:
+    try:
+        username = reddit.user.me().name
+        starting = False
+    except:
+        print("Could not connect to reddit, trying again")
+        sleep(10)
 comment_queue = []
 then = 0
 print("Starting to trawl comments")
