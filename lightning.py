@@ -11,6 +11,7 @@ import time
 import datetime
 import re
 import requests
+import json
 import spellcheck_config
 
 ENDPOINT = "https://api.cognitive.microsoft.com/bing/v5.0/spellcheck/?"
