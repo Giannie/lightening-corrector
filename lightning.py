@@ -41,7 +41,7 @@ verb:
 2. to become lighter or less dark; brighten.
 "The sky is lightening now that the storm has passed"
 
-P.S. I'm only a bot; but I'm trying to learn. I can now actually check to see if you've misused the word "lightening" using spell checking APIs. If I have replied to you, it is now likely that you have made a mistake. Please reply if you think I'm wrong!
+P.S. I'm only a bot, but I'm trying to learn. I can now actually check to see if you've misused the word "lightening" using spell checking APIs. If I have replied to you, it is now likely that you have made a mistake. Please reply if you think I'm wrong!
 '''
 
 def foundWord(comment):
