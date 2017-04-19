@@ -35,7 +35,7 @@ verb:
 2. to become lighter or less dark; brighten.
 "The sky is lightening now that the storm has passed"
 
-P.S. I'm only a bot; I reply to anyone that uses the word "lightening", even if they used it correctly. I apologise if you have used this word correctly. If this is a skincare or makeup subreddit, you should probably just ban me now. You guys definitely use lightening correctly more often than not.
+P.S. I'm only a bot; I reply to anyone that uses the word "lightening", even if they used it correctly. I apologise if you have used this word correctly. If this is a skincare or makeup subreddit you should probably just ban me now. You guys definitely use lightening correctly more often than not.
 '''
 
 def foundWord(string):
